@@ -1,10 +1,28 @@
 <h1>タスク新規作成ページ</h1>
+
+
+<%= render 'form', task: @task %>
+
 <%= form_for(@task) do |f| %>
-<%= f.label :content, 'タスク' %>
 
-<%= f.text_field :content %>
-
-<%= f.submit '保存' %>
-
+ <div id="error_explanation">
+　<% if task.errors.any? %>
+　<h2><%= pluralize(task.errors.count, "error") %> prohibited this message from being saved:</h2>
+      <ul>
+        <% task.errors.full_task.each do |task| %>
+          <li><%= task %></li>
+        <% end %>
+      </ul>
+    </div>
+　<% end %>
+  
+  <%= f.label :content, '内容' %>
+  <%= f.text_field :content %>
+  
+  <%= f.label :status, '状態' %>
+  <%= f.text_field :status %>
+  
+  <%= f.submit '保存' %>
 <% end %>
+
 <%= link_to '一覧に戻る', tasks_path %>
